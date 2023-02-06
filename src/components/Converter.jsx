@@ -10,9 +10,16 @@ const Converter = () => {
     amount: "",
     base: "",
     convertTo: "",
+    // baseRate: "",
+    // convertToRate: "",
   });
 
+  // const [returnedRates, setReturnedRates] = useState({
+
+  // });
+
   const [exchangedAmount, setExchangedAmount] = useState("");
+  const [oneToOneConversionText, setOneToOneConversionText] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -32,7 +39,7 @@ const Converter = () => {
     setConversionData({ ...conversionData, [e.target.name]: e.target.value });
   };
 
-  const onSubmit = async (e) => {
+  const onSubmitExchange = async (e) => {
     e.preventDefault();
     try {
       const { data } = await axios.get(
@@ -41,16 +48,57 @@ const Converter = () => {
       const { rates } = data;
       const numb = Object.values(rates).toString();
       setExchangedAmount(numb);
+      // getRates();
+      getOneToOneConversion();
     } catch (e) {
       console.log(e);
     }
   };
 
+  const getOneToOneConversion = async () => {
+    try {
+      const { data } = await axios.get(
+        `${API_URL}/latest?amount=1&from=${conversionData.base}&to=${conversionData.convertTo}`
+      );
+      console.log(data);
+      const { rates } = data;
+      const oneToOneConversionRate = Object.values(rates).toString();
+      setOneToOneConversionText(
+        `${data.amount} ${conversionData.base} = ${oneToOneConversionRate} ${conversionData.convertTo} `
+      );
+      console.log(oneToOneConversionText);
+    } catch {
+      console.log(e);
+    }
+  };
+
+  // const getRates = async () => {
+  //   try {
+  //     const { data } = await axios.get(
+  //       `${API_URL}/latest?to=${conversionData.base},${conversionData.convertTo}`
+  //     );
+  //     const { rates } = data;
+  //     const baseRate = rates[conversionData.base];
+  //     const convertToRate = rates[conversionData.convertTo];
+  //     console.log(baseRate);
+  //     console.log(convertToRate);
+  //     setConversionData({
+  //       ...conversionData,
+  //       baseRate,
+  //       convertToRate,
+  //     });
+  //     console.log(conversionData);
+  //   } catch {
+  //     console.log(e);
+  //   }
+  // };
+
   return (
     <>
       <div className="converter-container">
-        <form onSubmit={onSubmit}>
+        <form onSubmit={onSubmitExchange}>
           <div className="converter-container_currency-one">
+            <p>Amount</p>
             <input
               type="text"
               placeholder="1000"
@@ -68,6 +116,7 @@ const Converter = () => {
             </select>
           </div>
           <div className="converter-container_currency-two">
+            <p>Convert to</p>
             <input
               type="text"
               placeholder="1000"
@@ -88,7 +137,13 @@ const Converter = () => {
           <button>Submit</button>
         </form>
         <div className="one-one-conversion-container">
-          <p>One to One Conversion will go here</p>
+          <p>{oneToOneConversionText}</p>
+          {/* <p>One to One Conversion will go here</p>
+          <p>1 GBP = 1.12 Euro</p>
+          <p>
+            I need to know the selection of the two selected currencies and then
+            I need to get the latest figures based on that those currencies
+          </p> */}
         </div>
       </div>
     </>
