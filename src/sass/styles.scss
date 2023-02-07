@@ -1,4 +1,7 @@
-@import "./header.scss";
+@import "./_header.scss";
+@import "./_landingPage";
+@import "_converter.scss";
+@import "_one-to-one-conversion";
 
 * {
   margin: 0;

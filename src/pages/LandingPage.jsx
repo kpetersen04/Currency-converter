@@ -5,7 +5,6 @@ const LandingPage = () => {
   return (
     <div className="page">
       <Header />
-      <h2>Currency Converter</h2>
       <Converter />
     </div>
   );

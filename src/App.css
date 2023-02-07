@@ -1,4 +1,11 @@
-/* #root {
+.page {
+  min-height: 100vh;
+  /* background-color: #4361ee; */
+  background: linear-gradient(#4361ee 50%, white 0%);
+}
+
+/* 
+* #root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;

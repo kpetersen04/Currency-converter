@@ -1,9 +1,8 @@
-import { InputUnstyled } from "@mui/base";
+// import { InputUnstyled } from "@mui/base";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { API_URL } from "../const";
-// import GetOneToOneConversion from "./OnetoOneConversion";
-// import CountryNameDropDown from "./CountryNameDropdown";
+import { getOneToOneConversion } from "../utils/helper-functions";
 
 const Converter = (OneToOneConversionText) => {
   const [countryInfo, setCountryInfo] = useState({});
@@ -15,7 +14,6 @@ const Converter = (OneToOneConversionText) => {
     // baseRate: "",
     // convertToRate: "",
   });
-
   // const [returnedRates, setReturnedRates] = useState({
 
   // });
@@ -50,26 +48,12 @@ const Converter = (OneToOneConversionText) => {
       const { rates } = data;
       const numb = Object.values(rates).toString();
       setExchangedAmount(numb);
-      getOneToOneConversion();
+      getOneToOneConversion(
+        conversionData.base,
+        conversionData.convertTo,
+        setOneToOneConversionText
+      );
     } catch (e) {
-      console.log(e);
-    }
-  };
-
-  // Moved to const.js --> Don't delete yet
-  const getOneToOneConversion = async () => {
-    try {
-      const { data } = await axios.get(
-        `${API_URL}/latest?amount=1&from=${conversionData.base}&to=${conversionData.convertTo}`
-      );
-      console.log(data);
-      const { rates } = data;
-      const oneToOneConversionRate = Object.values(rates).toString();
-      setOneToOneConversionText(
-        `${data.amount} ${conversionData.base} = ${oneToOneConversionRate} ${conversionData.convertTo} `
-      );
-      console.log(oneToOneConversionText);
-    } catch {
       console.log(e);
     }
   };
@@ -98,6 +82,7 @@ const Converter = (OneToOneConversionText) => {
   return (
     <>
       <div className="converter-container">
+        <h2>Currency Converter</h2>
         <form onSubmit={onSubmitExchange}>
           <div className="converter-container_currency-one">
             <p>Amount</p>
@@ -138,8 +123,8 @@ const Converter = (OneToOneConversionText) => {
           </div>
           <button>Submit</button>
         </form>
-        <div className="one-one-conversion-container">
-          <p>{oneToOneConversionText}</p>
+        <div className="one-to-one-conversion-container">
+          <p className="result">{oneToOneConversionText}</p>
         </div>
       </div>
     </>
