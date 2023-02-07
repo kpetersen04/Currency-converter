@@ -2,8 +2,10 @@ import { InputUnstyled } from "@mui/base";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { API_URL } from "../const";
+// import GetOneToOneConversion from "./OnetoOneConversion";
+// import CountryNameDropDown from "./CountryNameDropdown";
 
-const Converter = () => {
+const Converter = (OneToOneConversionText) => {
   const [countryInfo, setCountryInfo] = useState({});
 
   const [conversionData, setConversionData] = useState({
@@ -48,13 +50,13 @@ const Converter = () => {
       const { rates } = data;
       const numb = Object.values(rates).toString();
       setExchangedAmount(numb);
-      // getRates();
       getOneToOneConversion();
     } catch (e) {
       console.log(e);
     }
   };
 
+  // Moved to const.js --> Don't delete yet
   const getOneToOneConversion = async () => {
     try {
       const { data } = await axios.get(
@@ -106,6 +108,7 @@ const Converter = () => {
               value={conversionData.amount}
               name="amount"
             ></input>
+            {/* <CountryNameDropDown /> */}
             <select name="base" id="currency-select" onChange={onChange}>
               <option value="">Select a Currency</option>
               {Object.keys(countryInfo).map((key) => (
@@ -120,7 +123,6 @@ const Converter = () => {
             <input
               type="text"
               placeholder="1000"
-              // onChange={onChange}
               readOnly
               value={exchangedAmount}
               name="amount"
@@ -138,12 +140,6 @@ const Converter = () => {
         </form>
         <div className="one-one-conversion-container">
           <p>{oneToOneConversionText}</p>
-          {/* <p>One to One Conversion will go here</p>
-          <p>1 GBP = 1.12 Euro</p>
-          <p>
-            I need to know the selection of the two selected currencies and then
-            I need to get the latest figures based on that those currencies
-          </p> */}
         </div>
       </div>
     </>
