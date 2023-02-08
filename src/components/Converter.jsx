@@ -2,37 +2,23 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { API_URL } from "../const";
-import { getOneToOneConversion } from "../utils/helper-functions";
+import { fetchData, getOneToOneConversion } from "../utils/helper-functions";
 
-const Converter = (OneToOneConversionText) => {
+const Converter = () => {
   const [countryInfo, setCountryInfo] = useState({});
 
   const [conversionData, setConversionData] = useState({
     amount: "",
     base: "",
     convertTo: "",
-    // baseRate: "",
-    // convertToRate: "",
   });
-  // const [returnedRates, setReturnedRates] = useState({
-
-  // });
 
   const [exchangedAmount, setExchangedAmount] = useState("");
   const [oneToOneConversionText, setOneToOneConversionText] = useState("");
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const { data } = await axios.get(`${API_URL}/currencies`);
-        setCountryInfo(data);
-      } catch (e) {
-        console.log(e);
-      }
-    };
-    fetchData();
+    fetchData(setCountryInfo, setConversionData);
   }, []);
-  console.log(conversionData);
 
   const onChange = (e) => {
     console.log("Change");
@@ -57,7 +43,9 @@ const Converter = (OneToOneConversionText) => {
       console.log(e);
     }
   };
-
+  // baseRate: "",
+  // convertToRate: "",
+  // const [returnedRates, setReturnedRates] = useState({
   // const getRates = async () => {
   //   try {
   //     const { data } = await axios.get(
@@ -96,9 +84,9 @@ const Converter = (OneToOneConversionText) => {
             {/* <CountryNameDropDown /> */}
             <select name="base" id="currency-select" onChange={onChange}>
               <option value="">Select a Currency</option>
-              {Object.keys(countryInfo).map((key) => (
-                <option key={key} value={key} name="base">
-                  {countryInfo[key]}
+              {Object.entries(countryInfo).map(([currencyName]) => (
+                <option key={currencyName} value={currencyName} name="base">
+                  {countryInfo[currencyName]}
                 </option>
               ))}
             </select>
@@ -114,9 +102,9 @@ const Converter = (OneToOneConversionText) => {
             ></input>
             <select name="convertTo" id="currency-select" onChange={onChange}>
               <option value="">Select a Currency</option>
-              {Object.keys(countryInfo).map((key) => (
-                <option key={key} value={key} name="convertToCurrency">
-                  {countryInfo[key]}
+              {Object.entries(countryInfo).map(([code]) => (
+                <option key={code} value={code} name="base">
+                  {countryInfo[code]}
                 </option>
               ))}
             </select>

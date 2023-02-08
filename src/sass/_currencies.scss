@@ -1,0 +1,17 @@
+.currencies-page {
+  &__country-card {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    margin-top: 50px;
+  }
+  &__country-details {
+    border: 3px solid #7209b7;
+    list-style: none;
+    padding: 20px;
+    margin-bottom: 50px;
+    margin-right: 20px;
+    width: 200px;
+    height: 150px;
+  }
+}

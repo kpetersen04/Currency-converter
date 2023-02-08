@@ -1,5 +1,15 @@
 import axios from "axios";
+import { useEffect, useState } from "react";
 import { API_URL } from "../const";
+
+export const fetchData = async (setCountryInfo, setConversionData) => {
+  try {
+    const { data } = await axios.get(`${API_URL}/currencies`);
+    setCountryInfo(data);
+  } catch (e) {
+    console.log(e);
+  }
+};
 
 export const getOneToOneConversion = async (
   baseCurrency,
@@ -16,7 +26,7 @@ export const getOneToOneConversion = async (
     setOneToOneConversionText(
       `${data.amount} ${baseCurrency} = ${oneToOneConversionRate} ${convertToCurrency} `
     );
-  } catch {
+  } catch (e) {
     console.log(e);
   }
 };
