@@ -2,90 +2,75 @@ import { useState, useEffect, Fragment } from "react";
 import axios from "axios";
 import { API_URL } from "../const";
 import Header from "../components/Header";
-import { fetchData, getOneToOneConversion } from "../utils/helper-functions";
+import CountryDetails from "../components/CountryDetails";
 
 const Currencies = () => {
-  const [countryInfo, setCountryInfo] = useState({});
-  const [conversionData, setConversionData] = useState({
-    amount: "",
-    base: "",
-    convertTo: "",
-  });
-  const [oneToOneConversionText, setOneToOneConversionText] = useState("");
-
+  const [allCurrencies, setAllCurrencies] = useState([]);
+  const [displayCurrencies, setDisplayCurrencies] = useState([]);
+  const [baseCurrency, setBaseCurrency] = useState("");
   const [search, setSearch] = useState("");
-  const [filteredCurrenices, setfilteredCurrenices] = useState([]);
-  const [filteredCurrencyCode, setfilteredCurrencyCode] = useState([]);
-
+  const fetchData = async () => {
+    try {
+      const { data } = await axios.get(`${API_URL}/currencies`);
+      const dataArray = Object.entries(data).map(([code, currencyName]) => {
+        return { code, currencyName };
+      });
+      setAllCurrencies(dataArray);
+      setDisplayCurrencies(dataArray);
+    } catch (e) {
+      console.log(e);
+    }
+  };
   useEffect(() => {
-    fetchData(setCountryInfo, setConversionData);
+    fetchData();
   }, []);
 
-  const onChange = (e) => {
-    setSearch(e.target.value);
+  const onBaseChange = (e) => {
+    setBaseCurrency(e.target.value);
   };
-  //   console.log("change");
-  //   setConversionData({
-  //     ...conversionData,
-  //     [e.target.name]: e.target.value,
-  //     convertTo: currencyName,
-  //   });
-  //   // -->I need to set the base to the code of the countries - the above is only updating the base currency
-  //   getOneToOneConversion(
-  //     conversionData.base,
-  //     conversionData.convertTo,
-  //     setOneToOneConversionText
-  //   );
-  //   const currenceyCode = Object.key(countryInfo).map(
-  //     (currencyName) => countryInfo[currencyName]
-  //   );
-  //   const filteredCurrencyCode = this.state.currencyCode.filter((currency) =>
-  //     currency.name.toLowerCase().includes(search.toLowerCase())
-  //   );
 
-  //   this.setSearch(filteredCurrencyCode);
-  // };
+  const onSearchChange = (e) => {
+    setSearch(e.target.value);
+    const filterCountries = allCurrencies.filter((currency) =>
+      currency.currencyName.includes(e.target.value)
+    );
+    setDisplayCurrencies(filterCountries);
+  };
+  console.log(search);
 
-  // const filteredCountries = countryInfo.filter((country) => {
-  //   return searchParams.some((newCountryInfo) => country[newCountryInfo]);
-  // });
-  // const filterCountries = () => {};
-  // If the search input matches the countryInfo value than make that country card appendOwnerState, otherwise hide it
-  // };
-
-  // console.log(conversionData);
   return (
-    <div className="page currencies-page">
+    <div className="currencies-page">
       <Header />
-      <input
-        className="currencies-page_search-bar"
-        type="search"
-        name="search"
-        placeholder="Search for..."
-        value={search}
-        onChange={onChange}
-      ></input>
-      {/* const filterCountries ={" "}
-      {Object.keys(countryInfo).filter((key) => {
-        return key.includes(search).reduce();
-      })} */}
-      <p>Change the base rate by selecting a diffferent currency</p>
-      <select name="base" id="currency-select">
-        <option>Set base rate</option>
-        {Object.entries(countryInfo).map(([code, currencyName]) => (
-          <option key={currencyName} value={code} name="base">
-            {currencyName}
-          </option>
-        ))}
-      </select>
+      <div className="currencies-page__top-options-section">
+        <input
+          className="currencies-page__search-bar"
+          type="search"
+          name="search"
+          placeholder="Search for..."
+          value={search}
+          onChange={onSearchChange}
+        ></input>
+        <select
+          className="currencies-page__base-selector"
+          name="base"
+          id="currency-select"
+          onChange={onBaseChange}
+        >
+          <option>Select your base rate</option>
+          {allCurrencies.map(({ code, currencyName }) => (
+            <option key={currencyName} value={code} name="base">
+              {currencyName}
+            </option>
+          ))}
+        </select>
+      </div>
       <div className="currencies-page__country-card">
-        {Object.entries(countryInfo).map(([code, currencyName]) => (
-          <ul className="currencies-page__country-details" key={code}>
-            <li>{currencyName}</li>
-            <li>{code}</li>
-            <li>{oneToOneConversionText}</li>
-            <button>Historical Data</button>
-          </ul>
+        {displayCurrencies.map(({ code, currencyName }) => (
+          <CountryDetails
+            code={code}
+            currencyName={currencyName}
+            baseCurrency={baseCurrency}
+          />
         ))}
       </div>
     </div>

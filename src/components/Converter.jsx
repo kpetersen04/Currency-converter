@@ -6,13 +6,11 @@ import { fetchData, getOneToOneConversion } from "../utils/helper-functions";
 
 const Converter = () => {
   const [countryInfo, setCountryInfo] = useState({});
-
   const [conversionData, setConversionData] = useState({
     amount: "",
     base: "",
     convertTo: "",
   });
-
   const [exchangedAmount, setExchangedAmount] = useState("");
   const [oneToOneConversionText, setOneToOneConversionText] = useState("");
 
@@ -43,29 +41,6 @@ const Converter = () => {
       console.log(e);
     }
   };
-  // baseRate: "",
-  // convertToRate: "",
-  // const [returnedRates, setReturnedRates] = useState({
-  // const getRates = async () => {
-  //   try {
-  //     const { data } = await axios.get(
-  //       `${API_URL}/latest?to=${conversionData.base},${conversionData.convertTo}`
-  //     );
-  //     const { rates } = data;
-  //     const baseRate = rates[conversionData.base];
-  //     const convertToRate = rates[conversionData.convertTo];
-  //     console.log(baseRate);
-  //     console.log(convertToRate);
-  //     setConversionData({
-  //       ...conversionData,
-  //       baseRate,
-  //       convertToRate,
-  //     });
-  //     console.log(conversionData);
-  //   } catch {
-  //     console.log(e);
-  //   }
-  // };
 
   return (
     <>
@@ -81,7 +56,6 @@ const Converter = () => {
               value={conversionData.amount}
               name="amount"
             ></input>
-            {/* <CountryNameDropDown /> */}
             <select name="base" id="currency-select" onChange={onChange}>
               <option value="">Select a Currency</option>
               {Object.entries(countryInfo).map(([currencyName]) => (

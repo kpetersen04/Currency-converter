@@ -1,17 +1,54 @@
 .currencies-page {
+  &__top-options-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin: 40px 40px 0 0;
+  }
+
+  &__search-bar {
+    width: 200px;
+    height: 40px;
+    font-size: 16px;
+    border-radius: 5px;
+  }
+
+  &__base-selector {
+    margin-top: 10px;
+    height: 30px;
+    border-radius: 5px;
+    cursor: grab;
+  }
   &__country-card {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
-    margin-top: 50px;
+    margin-top: 45px;
   }
   &__country-details {
     border: 3px solid #7209b7;
+    background-color: #4361ee;
+    color: white;
     list-style: none;
     padding: 20px;
-    margin-bottom: 50px;
+    margin-bottom: 45px;
     margin-right: 20px;
-    width: 200px;
+    width: 205px;
     height: 150px;
+  }
+
+  &__country-details > li {
+    margin-bottom: 5px;
+  }
+
+  &__one-to-one-text {
+    font-size: 13px;
+  }
+
+  &__link {
+    cursor: pointer;
+    margin-top: 10px;
+    width: 120px;
+    height: 30px;
   }
 }

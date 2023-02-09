@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { API_URL } from "../const";
 
-export const fetchData = async (setCountryInfo, setConversionData) => {
+export const fetchData = async (setCountryInfo) => {
   try {
     const { data } = await axios.get(`${API_URL}/currencies`);
     setCountryInfo(data);
