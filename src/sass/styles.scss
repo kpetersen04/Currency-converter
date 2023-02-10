@@ -1,9 +1,9 @@
 @import "./_header.scss";
-@import "./_landingPage";
 @import "_converter.scss";
 @import "_one-to-one-conversion";
 @import "./currencies";
 @import "./historicalDataPage";
+@import "./_landingPage";
 
 * {
   margin: 0;

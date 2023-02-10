@@ -47,43 +47,45 @@ const Converter = () => {
       <div className="converter-container">
         <h2>Currency Converter</h2>
         <form onSubmit={onSubmitExchange}>
-          <div className="converter-container_currency-one">
-            <p>Amount</p>
-            <input
-              type="text"
-              placeholder="1000"
-              onChange={onChange}
-              value={conversionData.amount}
-              name="amount"
-            ></input>
-            <select name="base" id="currency-select" onChange={onChange}>
-              <option value="">Select a Currency</option>
-              {Object.entries(countryInfo).map(([currencyName]) => (
-                <option key={currencyName} value={currencyName} name="base">
-                  {countryInfo[currencyName]}
-                </option>
-              ))}
-            </select>
+          <div className="converter-container__form-inputs">
+            <div className="converter-container__currency-one">
+              <p>Amount</p>
+              <input
+                type="text"
+                placeholder="1000"
+                onChange={onChange}
+                value={conversionData.amount}
+                name="amount"
+              ></input>
+              <select name="base" id="currency-select" onChange={onChange}>
+                <option value="">Select a Currency</option>
+                {Object.entries(countryInfo).map(([currencyName]) => (
+                  <option key={currencyName} value={currencyName} name="base">
+                    {countryInfo[currencyName]}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="converter-container__currency-two">
+              <p>Convert to</p>
+              <input
+                type="text"
+                placeholder="1000"
+                readOnly
+                value={exchangedAmount}
+                name="amount"
+              ></input>
+              <select name="convertTo" id="currency-select" onChange={onChange}>
+                <option value="">Select a Currency</option>
+                {Object.entries(countryInfo).map(([code]) => (
+                  <option key={code} value={code} name="base">
+                    {countryInfo[code]}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
-          <div className="converter-container_currency-two">
-            <p>Convert to</p>
-            <input
-              type="text"
-              placeholder="1000"
-              readOnly
-              value={exchangedAmount}
-              name="amount"
-            ></input>
-            <select name="convertTo" id="currency-select" onChange={onChange}>
-              <option value="">Select a Currency</option>
-              {Object.entries(countryInfo).map(([code]) => (
-                <option key={code} value={code} name="base">
-                  {countryInfo[code]}
-                </option>
-              ))}
-            </select>
-          </div>
-          <button>Submit</button>
+          <button>Convert</button>
         </form>
         <div className="one-to-one-conversion-container">
           <p className="result">{oneToOneConversionText}</p>

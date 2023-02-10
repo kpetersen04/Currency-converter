@@ -3,7 +3,7 @@ import Chart from "../components/Chart";
 
 const HistoricalDataPage = () => {
   return (
-    <div>
+    <div className="page">
       <Header />
       <h1>This will show the graphs, hopefully!</h1>
       <body>

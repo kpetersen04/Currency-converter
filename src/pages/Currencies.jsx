@@ -31,15 +31,18 @@ const Currencies = () => {
 
   const onSearchChange = (e) => {
     setSearch(e.target.value);
-    const filterCountries = allCurrencies.filter((currency) =>
-      currency.currencyName.includes(e.target.value)
+    const filterCountries = allCurrencies.filter(
+      (currency) =>
+        currency.currencyName
+          .toLowerCase()
+          .includes(e.target.value.toLowerCase()) ||
+        currency.code.toLowerCase().includes(e.target.value.toLowerCase())
     );
     setDisplayCurrencies(filterCountries);
   };
-  console.log(search);
 
   return (
-    <div className="currencies-page">
+    <div className=" page currencies-page">
       <Header />
       <div className="currencies-page__top-options-section">
         <input
