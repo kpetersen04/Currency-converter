@@ -1,25 +1,26 @@
 // import { InputUnstyled } from "@mui/base";
-import axios from "axios";
+import axios, { all } from "axios";
 import { useEffect, useState } from "react";
 import { API_URL } from "../const";
 import { fetchData, getOneToOneConversion } from "../utils/helper-functions";
 
 const Converter = () => {
-  const [countryInfo, setCountryInfo] = useState({});
+  const [allCurrencies, setAllCurrencies] = useState([]);
   const [conversionData, setConversionData] = useState({
     amount: "",
+    amountConverted: "",
     base: "",
     convertTo: "",
   });
-  const [exchangedAmount, setExchangedAmount] = useState("");
   const [oneToOneConversionText, setOneToOneConversionText] = useState("");
+  const [showError, setShowError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
-    fetchData(setCountryInfo, setConversionData);
+    fetchData(setAllCurrencies, setShowError, setErrorMessage);
   }, []);
 
   const onChange = (e) => {
-    console.log("Change");
     setConversionData({ ...conversionData, [e.target.name]: e.target.value });
   };
 
@@ -29,25 +30,40 @@ const Converter = () => {
       const { data } = await axios.get(
         `${API_URL}/latest?amount=${conversionData.amount}&from=${conversionData.base}&to=${conversionData.convertTo}`
       );
+      console.log(data);
       const { rates } = data;
-      const numb = Object.values(rates).toString();
-      setExchangedAmount(numb);
+      console.log(rates);
+      const numb = Object.values(rates);
+      setConversionData({ ...conversionData, amountConverted: numb });
+
       getOneToOneConversion(
         conversionData.base,
         conversionData.convertTo,
         setOneToOneConversionText
       );
+      setShowError(false);
     } catch (e) {
-      console.log(e);
+      setShowError(true);
+      if (conversionData.base === conversionData.convertTo) {
+        setErrorMessage(
+          "You've selected the same currencies, please choose different currencies and try again."
+        );
+      } else {
+        setErrorMessage("Something went wrong. Please try again later.");
+      }
     }
   };
 
   return (
     <>
       <div className="converter-container">
-        <h2>Currency Converter</h2>
+        {showError && (
+          <div className="error">
+            <p className="error-text">{errorMessage}</p>
+          </div>
+        )}
         <form onSubmit={onSubmitExchange}>
-          <div className="converter-container__form-inputs">
+          <section className="converter-container__form-inputs">
             <div className="converter-container__currency-one">
               <p>Amount</p>
               <input
@@ -59,37 +75,41 @@ const Converter = () => {
               ></input>
               <select name="base" id="currency-select" onChange={onChange}>
                 <option value="">Select a Currency</option>
-                {Object.entries(countryInfo).map(([currencyName]) => (
-                  <option key={currencyName} value={currencyName} name="base">
-                    {countryInfo[currencyName]}
+                {allCurrencies.map(({ code, currencyName }) => (
+                  <option key={code} value={code} name="base">
+                    {currencyName}
                   </option>
                 ))}
               </select>
             </div>
             <div className="converter-container__currency-two">
-              <p>Convert to</p>
+              <p>Converted to</p>
               <input
                 type="text"
                 placeholder="1000"
                 readOnly
-                value={exchangedAmount}
+                value={conversionData.amountConverted}
                 name="amount"
               ></input>
               <select name="convertTo" id="currency-select" onChange={onChange}>
                 <option value="">Select a Currency</option>
-                {Object.entries(countryInfo).map(([code]) => (
-                  <option key={code} value={code} name="base">
-                    {countryInfo[code]}
+                {allCurrencies.map(({ code, currencyName }) => (
+                  <option key={code} value={code} name="code">
+                    {currencyName}
                   </option>
                 ))}
               </select>
             </div>
-          </div>
-          <button>Convert</button>
+          </section>
+          <section className="converter-container__button-conversion-container">
+            <div className="converter-container__one-to-one-conversion-container">
+              <p className="converter-container__result">
+                {oneToOneConversionText}
+              </p>
+            </div>
+            <button>Convert</button>
+          </section>
         </form>
-        <div className="one-to-one-conversion-container">
-          <p className="result">{oneToOneConversionText}</p>
-        </div>
       </div>
     </>
   );

@@ -2,7 +2,7 @@ import { useState, useEffect, Fragment } from "react";
 import axios from "axios";
 import { API_URL } from "../const";
 import Header from "../components/Header";
-import CountryDetails from "../components/CountryDetails";
+import CurrencyDetails from "../components/CurrencyDetails";
 
 const Currencies = () => {
   const [allCurrencies, setAllCurrencies] = useState([]);
@@ -67,9 +67,9 @@ const Currencies = () => {
           ))}
         </select>
       </div>
-      <div className="currencies-page__country-card">
+      <div className="currencies-page__card">
         {displayCurrencies.map(({ code, currencyName }) => (
-          <CountryDetails
+          <CurrencyDetails
             code={code}
             currencyName={currencyName}
             baseCurrency={baseCurrency}

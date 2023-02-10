@@ -3,12 +3,7 @@ import { Link } from "react-router-dom";
 const Header = () => {
   const navLinks = [
     { title: "Currency Converter", slug: "/" },
-    { title: "See All Currencies", slug: "/currencies" },
-    // { title: "Favorites", slug: "/favorite" },
-    // {
-    //   title: "Historical Currency Data",
-    //   slug: "/currencies/historical-data/id",
-    // },
+    { title: "Browse All Currencies", slug: "/currencies" },
   ];
 
   return (

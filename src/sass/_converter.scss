@@ -1,53 +1,69 @@
 .converter-container {
-  border: 3px solid #3a0ca3;
   background-color: white;
-  //   margin-top: 30%;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+  border-radius: 3px;
   margin: auto;
-  margin-top: 20%;
-  width: 80%;
+  width: 65%;
   padding: 20px;
   height: 250px;
 
-  & h2 {
+  & .erorr-text:first-of-type {
+    margin-bottom: 5px;
+  }
+  & .error-text {
+    text-align: center;
     margin-bottom: 15px;
+    color: black;
   }
 
   & form {
-    // display: flex;
-    // margin: auto;
-    // width: 80%;
-    width: 70%;
-    margin: auto;
+    margin: 0;
   }
 
   &__form-inputs {
     display: flex;
+    justify-content: center;
+    gap: 20%;
   }
 
-  &__currency-one,
-  &__currency-two {
-    margin-right: 40px;
-  }
   & p {
+    color: grey;
     font-size: 14px;
     margin-bottom: 3px;
   }
-  & input {
-    max-width: 100px;
-    height: 55px;
+
+  & p:last-of-type {
+    font-size: 15px;
   }
 
+  & input,
   & select {
-    height: 55px;
+    height: 60px;
+    font-size: 17px;
+    cursor: pointer;
+  }
+
+  & input {
+    padding: 8px;
+    max-width: 90px;
+  }
+
+  &__button-conversion-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
   }
 
   & button {
-    margin-top: 15px;
-    padding: 8px;
-  }
-
-  & button,
-  & select {
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    padding: 15px 25px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: none;
+    background-color: #4361ee;
+    color: white;
+    cursor: pointer;
+    position: relative;
+    right: 0;
   }
 }
