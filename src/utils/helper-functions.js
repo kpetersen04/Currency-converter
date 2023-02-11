@@ -17,7 +17,6 @@ export const fetchData = async (
   } catch (e) {
     setShowError(true);
     setErrorMessage("Data can't be retrieved. Please try again later");
-    console.log(e);
   }
 };
 

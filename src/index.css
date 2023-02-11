@@ -3,10 +3,15 @@
   box-sizing: border-box;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
-
-.root {
+html {
+  overflow: hidden;
   height: 100%;
-  width: 100%;
+}
+
+body {
+  overflow: auto;
+  height: 100%;
+  overscroll-behavior: none;
 }
 
 .title {

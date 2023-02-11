@@ -80,7 +80,7 @@ const Converter = () => {
               </select>
             </div>
             <div className="converter-container__currency-two">
-              <p>Converted to</p>
+              <p className="converter-container__convert-text">Converted to</p>
               <input
                 type="text"
                 placeholder="1000"

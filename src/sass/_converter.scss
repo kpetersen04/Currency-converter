@@ -4,7 +4,7 @@
     rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
   border-radius: 3px;
   margin: auto;
-  width: 65%;
+  width: 70%;
   padding: 20px;
   height: 250px;
 
@@ -18,13 +18,18 @@
   }
 
   & form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     margin: 0;
   }
 
   &__form-inputs {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+
     gap: 20%;
+    width: 90%;
   }
 
   & p {
@@ -35,6 +40,10 @@
 
   & p:last-of-type {
     font-size: 15px;
+  }
+
+  &__convert-text {
+    text-align: left;
   }
 
   & input,
@@ -49,10 +58,15 @@
     max-width: 90px;
   }
 
+  // &__currency-two {
+  //   text-align: right;
+  // }
+
   &__button-conversion-container {
     display: flex;
     justify-content: space-between;
     margin-top: 40px;
+    width: 90%;
   }
 
   & button {
