@@ -45,6 +45,7 @@ const Converter = () => {
         setErrorMessage(
           "You've selected the same currencies, please choose different currencies and try again."
         );
+        setOneToOneConversionText("");
       } else {
         setErrorMessage("Something went wrong. Please try again later.");
       }

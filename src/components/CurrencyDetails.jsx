@@ -4,8 +4,8 @@ import { getOneToOneConversion } from "../utils/helper-functions";
 
 const CurrencyDetails = ({ code, currencyName, baseCurrency }) => {
   const [oneToOneConversionText, setOneToOneConversionText] = useState("");
-  const [showError, setShowError] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [showConversionError, setShowConversionError] = useState(false);
+  const [conversionErrorMessage, setConversionErrorMessage] = useState("");
 
   useEffect(() => {
     if (baseCurrency) {
@@ -13,8 +13,8 @@ const CurrencyDetails = ({ code, currencyName, baseCurrency }) => {
         baseCurrency,
         code,
         setOneToOneConversionText,
-        setShowError,
-        setErrorMessage
+        setShowConversionError,
+        setConversionErrorMessage
       );
     }
   }, [baseCurrency]);
@@ -23,8 +23,8 @@ const CurrencyDetails = ({ code, currencyName, baseCurrency }) => {
     <li className="currencies-page__country-details">
       <p className="currencies-page__currency-name">{currencyName}</p>
       <p>{code}</p>
-      {showError ? (
-        <p className="currencies-page__error">{errorMessage}</p>
+      {showConversionError ? (
+        <p className="currencies-page__error">{conversionErrorMessage}</p>
       ) : (
         <p className="currencies-page__one-to-one-text">
           {oneToOneConversionText}
