@@ -8,15 +8,13 @@ const CurrencyDetails = ({ code, currencyName, baseCurrency }) => {
   const [conversionErrorMessage, setConversionErrorMessage] = useState("");
 
   useEffect(() => {
-    if (baseCurrency) {
-      getOneToOneConversion(
-        baseCurrency,
-        code,
-        setOneToOneConversionText,
-        setShowConversionError,
-        setConversionErrorMessage
-      );
-    }
+    getOneToOneConversion(
+      baseCurrency,
+      code,
+      setOneToOneConversionText,
+      setShowConversionError,
+      setConversionErrorMessage
+    );
   }, [baseCurrency]);
 
   return (
