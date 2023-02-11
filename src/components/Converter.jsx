@@ -1,4 +1,3 @@
-// import { InputUnstyled } from "@mui/base";
 import axios, { all } from "axios";
 import { useEffect, useState } from "react";
 import { API_URL } from "../const";
@@ -30,9 +29,7 @@ const Converter = () => {
       const { data } = await axios.get(
         `${API_URL}/latest?amount=${conversionData.amount}&from=${conversionData.base}&to=${conversionData.convertTo}`
       );
-      console.log(data);
       const { rates } = data;
-      console.log(rates);
       const numb = Object.values(rates);
       setConversionData({ ...conversionData, amountConverted: numb });
 

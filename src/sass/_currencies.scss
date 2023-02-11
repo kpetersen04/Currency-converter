@@ -3,7 +3,7 @@
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    margin: 40px 40px 0 0;
+    margin: 0 40px 0 0;
   }
 
   &__search-bar {
@@ -11,6 +11,7 @@
     height: 40px;
     font-size: 16px;
     border-radius: 5px;
+    cursor: pointer;
   }
 
   &__base-selector {
@@ -19,7 +20,7 @@
     border-radius: 5px;
     cursor: grab;
   }
-  &__card {
+  &__cards-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
@@ -34,15 +35,16 @@
     padding: 20px;
     margin-bottom: 45px;
     margin-right: 20px;
-    width: 205px;
-    height: 150px;
+    width: 215px;
+    height: 170px;
   }
 
-  &__country-details > li {
+  &__country-details > p {
     margin-bottom: 5px;
   }
 
-  &__one-to-one-text {
+  &__one-to-one-text,
+  &__error {
     font-size: 13px;
   }
 
@@ -51,5 +53,10 @@
     margin-top: 10px;
     width: 120px;
     height: 30px;
+    background-color: white;
+    border: none;
+    border-radius: 5px;
+    color: #3a0ca3;
+    font-weight: bold;
   }
 }

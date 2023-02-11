@@ -24,7 +24,9 @@ export const fetchData = async (
 export const getOneToOneConversion = async (
   baseCurrency,
   convertToCurrency,
-  setOneToOneConversionText
+  setOneToOneConversionText,
+  setShowError,
+  setErrorMessage
 ) => {
   try {
     const { data } = await axios.get(
@@ -39,7 +41,11 @@ export const getOneToOneConversion = async (
     setOneToOneConversionText(
       `${data.amount} ${baseCurrency} = ${oneToOneConversionRate} ${convertToCurrency} `
     );
+    setShowError(false);
   } catch (e) {
-    console.log(e);
+    setShowError(true);
+    if (baseCurrency === convertToCurrency) {
+      setErrorMessage(`1 ${baseCurrency} = 1 ${convertToCurrency} `);
+    }
   }
 };

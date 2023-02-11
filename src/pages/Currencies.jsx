@@ -44,7 +44,9 @@ const Currencies = () => {
   return (
     <div className=" page currencies-page">
       <Header />
+
       <div className="currencies-page__top-options-section">
+        <h2 className="title">Browse all Currencies</h2>
         <input
           className="currencies-page__search-bar"
           type="search"
@@ -67,15 +69,16 @@ const Currencies = () => {
           ))}
         </select>
       </div>
-      <div className="currencies-page__card">
+      <ul className="currencies-page__cards-container">
         {displayCurrencies.map(({ code, currencyName }) => (
           <CurrencyDetails
             code={code}
             currencyName={currencyName}
             baseCurrency={baseCurrency}
+            key={code}
           />
         ))}
-      </div>
+      </ul>
     </div>
   );
 };

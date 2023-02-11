@@ -5,10 +5,10 @@ const HistoricalDataPage = () => {
   return (
     <div className="page">
       <Header />
-      <h1>This will show the graphs, hopefully!</h1>
-      <body>
+      <h1 className="title">Exchange Rate Over Time</h1>
+      <section>
         <Chart />
-      </body>
+      </section>
     </div>
   );
 };
