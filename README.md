@@ -41,7 +41,7 @@ Once I decided on what I wanted to do for my project, I started researching APIs
 I then wireframed the functionality of my web app. This helped me to identifty my core requirements for the project as well make a plan for the individual components I might need.
 
 <p align='center'>
-<img alt='Excalidraw plan' style='width: 550px' src='https://i.imgur.com/FMX9zN9.png'>
+<img alt='Excalidraw plan' style='width: 550px' src='https://i.imgur.com/8vMDAfY.png'>
 </p>
 
 #### Stage Two: Core Requirements
