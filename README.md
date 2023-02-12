@@ -59,17 +59,16 @@ Unfortunatley I didn't have the time to meet my stretch goals but you can see th
 - Identifying and resloving errors resulting from the API used. For example when the user selects the same currency for the base and the convertTo currency.
 
 ```javascript
-catch (e) {
-      setShowError(true);
+const onSubmitExchange = async (e) => {
+    e.preventDefault();
+    try {
       if (conversionData.base === conversionData.convertTo) {
+        setShowError(true);
         setErrorMessage(
           "You've selected the same currencies, please choose different currencies and try again."
         );
         setOneToOneConversionText("");
-      } else {
-        setErrorMessage("Something went wrong. Please try again later.");
       }
-    }
 ```
 
 #### Stage Four: With More Time...
@@ -92,24 +91,27 @@ export const getOneToOneConversion = async (
   setConversionErrorMessage
 ) => {
   try {
-    const { data } = await axios.get(
-      `${API_URL}/latest?amount=1&from=${baseCurrency}&to=${convertToCurrency}`
-    );
-    const { rates } = data;
-    const oneToOneConversionRate = Object.entries(rates).map(
-      ([code, conversionRate]) => {
-        return conversionRate;
-      }
-    );
-    setOneToOneConversionText(
-      `${data.amount} ${baseCurrency} = ${oneToOneConversionRate} ${convertToCurrency} `
-    );
-    setShowConversionError(false);
+    if (baseCurrency === convertToCurrency) {
+      setShowConversionError(true);
+      setConversionErrorMessage(`1 ${baseCurrency} = 1 ${convertToCurrency} `);
+    } else {
+      setShowConversionError(false);
+      const { data } = await axios.get(
+        `${API_URL}/latest?amount=1&from=${baseCurrency}&to=${convertToCurrency}`
+      );
+      const { rates } = data;
+      const oneToOneConversionRate = Object.entries(rates).map(
+        ([code, conversionRate]) => {
+          return conversionRate;
+        }
+      );
+      setOneToOneConversionText(
+        `${data.amount} ${baseCurrency} = ${oneToOneConversionRate} ${convertToCurrency} `
+      );
+    }
   } catch (e) {
     setShowConversionError(true);
-    if (baseCurrency === convertToCurrency) {
-      setConversionErrorMessage(`1 ${baseCurrency} = 1 ${convertToCurrency} `);
-    }
+    setConversionErrorMessage("Unable to provide the exchange rate.");
   }
 };
 ```

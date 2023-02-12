@@ -4,6 +4,7 @@ import { API_URL } from "../const";
 
 export const fetchData = async (
   setAllCurrencies,
+  setDisplayCurrencies,
   setShowError,
   setErrorMessage
 ) => {
@@ -13,6 +14,7 @@ export const fetchData = async (
       return { code, currencyName };
     });
     setAllCurrencies(dataArray);
+    setDisplayCurrencies(dataArray);
     setShowError(false);
   } catch (e) {
     setShowError(true);
@@ -28,23 +30,26 @@ export const getOneToOneConversion = async (
   setConversionErrorMessage
 ) => {
   try {
-    const { data } = await axios.get(
-      `${API_URL}/latest?amount=1&from=${baseCurrency}&to=${convertToCurrency}`
-    );
-    const { rates } = data;
-    const oneToOneConversionRate = Object.entries(rates).map(
-      ([code, conversionRate]) => {
-        return conversionRate;
-      }
-    );
-    setOneToOneConversionText(
-      `${data.amount} ${baseCurrency} = ${oneToOneConversionRate} ${convertToCurrency} `
-    );
-    setShowConversionError(false);
+    if (baseCurrency === convertToCurrency) {
+      setShowConversionError(true);
+      setConversionErrorMessage(`1 ${baseCurrency} = 1 ${convertToCurrency} `);
+    } else {
+      setShowConversionError(false);
+      const { data } = await axios.get(
+        `${API_URL}/latest?amount=1&from=${baseCurrency}&to=${convertToCurrency}`
+      );
+      const { rates } = data;
+      const oneToOneConversionRate = Object.entries(rates).map(
+        ([code, conversionRate]) => {
+          return conversionRate;
+        }
+      );
+      setOneToOneConversionText(
+        `${data.amount} ${baseCurrency} = ${oneToOneConversionRate} ${convertToCurrency} `
+      );
+    }
   } catch (e) {
     setShowConversionError(true);
-    if (baseCurrency === convertToCurrency) {
-      setConversionErrorMessage(`1 ${baseCurrency} = 1 ${convertToCurrency} `);
-    }
+    setConversionErrorMessage("Unable to provide the exchange rate.");
   }
 };

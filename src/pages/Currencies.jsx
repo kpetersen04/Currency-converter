@@ -1,6 +1,7 @@
 import { useState, useEffect, Fragment } from "react";
 import axios from "axios";
 import { API_URL } from "../const";
+import { fetchData } from "../utils/helper-functions";
 import Header from "../components/Header";
 import CurrencyDetails from "../components/CurrencyDetails";
 
@@ -9,20 +10,16 @@ const Currencies = () => {
   const [displayCurrencies, setDisplayCurrencies] = useState([]);
   const [baseCurrency, setBaseCurrency] = useState("");
   const [search, setSearch] = useState("");
-  const fetchData = async () => {
-    try {
-      const { data } = await axios.get(`${API_URL}/currencies`);
-      const dataArray = Object.entries(data).map(([code, currencyName]) => {
-        return { code, currencyName };
-      });
-      setAllCurrencies(dataArray);
-      setDisplayCurrencies(dataArray);
-    } catch (e) {
-      console.log(e);
-    }
-  };
+  const [showError, setShowError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
   useEffect(() => {
-    fetchData();
+    fetchData(
+      setAllCurrencies,
+      setDisplayCurrencies,
+      setShowError,
+      setErrorMessage
+    );
   }, []);
 
   const onBaseChange = (e) => {

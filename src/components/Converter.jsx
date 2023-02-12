@@ -14,6 +14,8 @@ const Converter = () => {
   const [oneToOneConversionText, setOneToOneConversionText] = useState("");
   const [showError, setShowError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [showConversionError, setShowConversionError] = useState(false);
+  const [conversionErrorMessage, setConversionErrorMessage] = useState("");
 
   useEffect(() => {
     fetchData(setAllCurrencies, setShowError, setErrorMessage);
@@ -26,29 +28,32 @@ const Converter = () => {
   const onSubmitExchange = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.get(
-        `${API_URL}/latest?amount=${conversionData.amount}&from=${conversionData.base}&to=${conversionData.convertTo}`
-      );
-      const { rates } = data;
-      const numb = Object.values(rates);
-      setConversionData({ ...conversionData, amountConverted: numb });
-
-      getOneToOneConversion(
-        conversionData.base,
-        conversionData.convertTo,
-        setOneToOneConversionText
-      );
-      setShowError(false);
-    } catch (e) {
-      setShowError(true);
       if (conversionData.base === conversionData.convertTo) {
+        setShowError(true);
         setErrorMessage(
           "You've selected the same currencies, please choose different currencies and try again."
         );
         setOneToOneConversionText("");
       } else {
-        setErrorMessage("Something went wrong. Please try again later.");
+        const { data } = await axios.get(
+          `${API_URL}/latest?amount=${conversionData.amount}&from=${conversionData.base}&to=${conversionData.convertTo}`
+        );
+        const { rates } = data;
+        const numb = Object.values(rates);
+        setConversionData({ ...conversionData, amountConverted: numb });
+
+        getOneToOneConversion(
+          conversionData.base,
+          conversionData.convertTo,
+          setOneToOneConversionText,
+          setShowConversionError,
+          setConversionErrorMessage
+        );
+        setShowError(false);
       }
+    } catch (e) {
+      setShowError(true);
+      setErrorMessage("Something went wrong. Please try again later.");
     }
   };
 
