@@ -2,7 +2,7 @@
 
 Using the public Frankfurter API, I built a front-end React web app with a currency converter for up to 30 different currencies. The user can select the two different currencies and input the amount they want to convert.
 
-There is a seperate page which lists each currency name and code and links to a graph of the past exchange rates for each currency (the graph is still in production). This page also allows you to set a base currency and get the exchange rate for each listed currency.
+There is a separate page which lists each currency name and code and links to a graph of the past exchange rates for each currency (the graph is still in production). This page also allows you to set a base currency and get the exchange rate for each listed currency.
 
 Check out the deployed [Currency Converter](https://musical-pothos-740b29.netlify.app/)
 
@@ -36,9 +36,9 @@ The application was required to:
 
 #### Stage One: Planning
 
-Once I decided on what I wanted to do for my project, I started researching APIs to ensure that I could find one that would include the data I needed. I ended up choosing Frankfurter API. While it has a limited number of currencies compared to others, it allows you umlimited requests and includes the historical data for each currency.
+Once I decided on what I wanted to do for my project, I started researching APIs to ensure that I could find one that would include the data I needed. I ended up choosing Frankfurter API. While it has a limited number of currencies compared to others, it allows you unlimited requests and includes the historical data for each currency.
 
-I then wireframed the functionality of my web app. This helped me to identifty my core requirements for the project as well make a plan for the individual components I might need.
+I then wireframed the functionality of my web app. This helped me to identify my core requirements for the project as well as make a plan for the individual components I might need.
 
 <p align='center'>
 <img alt='Excalidraw plan' style='width: 550px' src='https://i.imgur.com/8vMDAfY.png'>
@@ -52,11 +52,11 @@ I then wireframed the functionality of my web app. This helped me to identifty m
 
 #### Stage Three: Stretch Goals
 
-Unfortunatley I didn't have the time to meet my stretch goals but you can see them listed in Stage Four. Instead of the stretch goals, any extra time I had during the week went towards polishing up the core requirements. This included:
+Unfortunately I didn't have the time to meet my stretch goals but you can see them listed in Stage Four. Instead of the stretch goals, any extra time I had during the week went towards polishing up the core requirements. This included:
 
 - Refactoring code to be easier to understand and more succinct.
 - Setting up the search bar to search for currency name, currency code and to take into account the user searching in lowercase.
-- Identifying and resloving errors resulting from the API used. For example when the user selects the same currency for the base and the convertTo currency.
+- Identifying and resolving errors resulting from the API used. For example when the user selects the same currency for the base and the convertTo currency.
 
 ```javascript
 const onSubmitExchange = async (e) => {
@@ -80,7 +80,7 @@ With more time, I would like to:
 
 ## The Wins
 
-Refactoring my code to reduce repetition and make it more acccessible. For example, I created a helper-functions file which included different functions that could be used within different pages and components. One of these functions, the getOneToOneConversion() is called in the CurrencyDetails component when the user sets the baseCurrency as well as the Converter component.
+Refactoring my code to reduce repetition and make it more accessible. For example, I created a helper-functions file which included different functions that could be used within different pages and components. One of these functions, the getOneToOneConversion() is called in the CurrencyDetails component when the user sets the baseCurrency as well as the Converter component.
 
 ```javascript
 export const getOneToOneConversion = async (
@@ -138,4 +138,4 @@ const onSearchChange = (e) => {
 
 - Project deployment on Netlify.
 
-- The importance of version control. I refactored a good portion of my code, which always involved breaking it. Because I regulary commited and pushed my work I was able to confidently refactor with the knowledge that I had a 'useable' version to revert to if my amendments weren't successful.
+- The importance of version control. I refactored a good portion of my code, which always involved breaking it. Because I regularly committed and pushed my work I was able to confidently refactor with the knowledge that I had a 'usable' version to revert to if my amendments weren't successful.
