@@ -63,7 +63,7 @@ setConversionData({ ...conversionData, amountConverted: numb });
 
 Along with allowing the user to get a conversion amount I wanted to automatically provide them with the one to one conversion rate for the two currencies they selected. I did this by calling the getOneToOneConversion function, which was included in a global helper-functions file, and included the relevant inputs for the required data as well as the setOneToOneConverstionText. The oneToOneConversionText would then be used to show the one to one rate to the user.
 
-The second core requirement was an all currency page that includes a list of all currency names, codes and the exchange rate for each one based on the user selected base currency. The generic country information is obtained from the API on each render of the page and displayed the displayed automatically.
+The second core requirement was an all currency page that includes a list of all currency names, codes and the exchange rate for each one based on the user selected base currency. The generic country information is obtained from the API on each render of the page and displayed automatically.
 
 The user also has the ability to select a currency and get the one to one conversion for each listed currency. When the user selects a new currency an onChange event listener updates the baseCurrency state to the event target value. The CurrencyDetails component takes in the currency code, currencyName and baseCurrency as parameters and uses those within the global getOneToOneConversion function to return the one to one conversion rate. This function is called each time the baseCurrency is changed by the user.
 
