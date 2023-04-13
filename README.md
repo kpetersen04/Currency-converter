@@ -1,8 +1,8 @@
 # Currency Converter
 
-For my second individual project, I used the public Frankfurter API to build a front-end React web app with a currency converter for up to 30 different currencies. The user can select two different currencies and input the amount they want to convert.
+For my second individual project, I used the public Frankfurter API to build a front-end React web app with a currency converter for up to 30 different currencies. The user can select the two different currencies and input the amount they want to convert.
 
-There is a separate page which lists each currency name and code and links to a graph of the past exchange rates for each currency (the graph is still in production). This page also allows the user to set a base currency and get the one to one exchange rate for each listed currency.
+There is a separate page which lists each currency name and code and links to a graph of the past exchange rates for each currency (the graph is still in production). This page also allows you to set a base currency and get the exchange rate for each listed currency.
 
 Check out the deployed [Currency Converter](https://musical-pothos-740b29.netlify.app/)
 
@@ -36,7 +36,7 @@ The application was required to:
 
 #### Stage One: Planning
 
-Once I decided on what I wanted to do for my project, I started researching APIs to ensure that I could find one that would include the data I needed. I ended up choosing Frankfurter API. While it has a limited number of currencies compared to others, it allows you unlimited requests and includes the historical data for each currency which would be needed for the graph of the past exchange rates.
+Once I decided on what I wanted to do for my project, I started researching APIs to ensure that I could find one that would include the data I needed. I ended up choosing Frankfurter API. While it has a limited number of currencies compared to others, it allows you unlimited requests and includes the historical data for each currency.
 
 I then wireframed the functionality of my web app. This helped me to identify my core requirements for the project as well as make a plan for the individual components I might need.
 
@@ -50,7 +50,7 @@ My landing page included a ‘Header’ component which was used across all page
 
 On each load or re-render of the application, I used my global fetchData function to set the allCurrencies array as well as any relevant error messages. If there were any issues obtaining the currency information from the API the user would be notified with an error message, otherwise they would be able to complete the required conversion as normal.
 
-To obtain the data required for the conversion, I created a converstionData useState object which included the amount, amountConverted, base rate and the convertTo rate. By placing an onChange event listener on the currency form inputs I was able to update the converstionData state and use that information to request the most recent rates from the API and set the amountConverted to the relevant number provided by the API.
+To obtain the data required for the conversion, I created a converstionData useState which included the amount, amountConverted, base rate and the convertTo rate. By placing an onChange event listener on the currency form inputs I was able to update the converstionData state and use that information to request the most recent rates from the API and set the amountConverted to the relevant number provided by the API.
 
 ```javascript
 const { data } = await axios.get(
@@ -63,9 +63,9 @@ setConversionData({ ...conversionData, amountConverted: numb });
 
 Along with allowing the user to get a conversion amount I wanted to automatically provide them with the one to one conversion rate for the two currencies they selected. I did this by calling the getOneToOneConversion function, which was included in a global helper-functions file, and included the relevant inputs for the required data as well as the setOneToOneConverstionText. The oneToOneConversionText would then be used to show the one to one rate to the user.
 
-The second core requirement was an all currency page that includes a list of all currency names, codes and the exchange rate for each one based on the user selected base currency. The generic country information is obtained from the API on each render of the page and displayed automatically.
+The second core requirement was an all currency page that includes a list of all currency names, codes and the exchange rate for each one based on the user selected base currency. The generic country information is obtained from the API on each render of the page and displayed on the page.
 
-The user also has the ability to select a currency and get the one to one conversion for each listed currency. When the user selects a new currency an onChange event listener updates the baseCurrency state to the event target value. The CurrencyDetails component takes in the currency code, currencyName and baseCurrency as parameters and uses those within the global getOneToOneConversion function to return the one to one conversion rate. This function is called each time the baseCurrency is changed by the user.
+The user also has the ability to select a currency and get the one to one conversion for each listed currency. When the user selects a new currency an onChange event listener updates the BaseCurrency state to the event target value. The CurrencyDetails component takes in the currency code, currencyName and baseCurrency as parameters and uses those within the global getOneToOneConversion function to return the one to one conversion rate. This function is called each time the baseCurrency is changed by the user.
 
 #### Stage Three: Refactoring The Code
 
